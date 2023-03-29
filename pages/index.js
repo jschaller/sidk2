@@ -38,6 +38,8 @@ export default function Ping() {
     setResults(sortedResults);
   };
 
+  const numAlive = results.filter(result => result.alive).length;
+  const numDead = results.filter(result => !result.alive).length;
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Typography variant="h4" align="center" sx={{ mb: 2 }}>
@@ -53,7 +55,7 @@ export default function Ping() {
         }}
         onSubmit={handleSubmit}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between", width: "20%" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", maxWidth:"650", mr:1, mb:1 }}>
           
           <TextField
             label="Subnet"
@@ -107,16 +109,16 @@ export default function Ping() {
         </Button>
       </Box>
       {results.length > 0 && (
-        <Box sx={{ display: "flex", flexDirection: "column", maxWidth: 650, mx: "auto"}}>
-          <Typography variant="h6" align="center" sx={{ mb: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", maxWidth: 650, mx: "auto",}}>
+          <Typography variant="h6" align="center" sx={{ mb: 2, }}>
             Ping Results
           </Typography>
-          <TableContainer component={Paper}>
-            <Table sx={{ /*minWidth: 650,*/ }}>
-              <TableHead>
+          <TableContainer component={Paper} sx={{overflowX: 'initial'}}>
+            <Table aria-label='Ping Results' stickyHeader sx={{ /*minWidth: 650,*/ }}>
+              <TableHead >
                 <TableRow>
                   <TableCell sx={{ width: "30%" }}>Address</TableCell>
-                  <TableCell sx={{ width: "20%" }}>Status</TableCell>
+                  <TableCell sx={{ width: "20%" }}>Status<br/>Alive: {numAlive}<br/>Dead: {numDead}</TableCell>
                   <TableCell sx={{ width: "20%" }}>Response Time (ms)</TableCell>
                   <TableCell sx={{ width: "30%" }}>Hostname</TableCell>
                 </TableRow>

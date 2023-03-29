@@ -52,16 +52,13 @@ export default async function handler(req, res) {
       } else {
         const reverseLookup = await new Promise((resolve, reject) => {
           dns.reverse(address, (err, hostnames) => {
-            console.log(err)
             if (err || hostnames.length === 0) {
               resolve(null);
             } else {
-                console.log(hostnames)
               resolve(hostnames[0]);
             }
           });
         });
-        //console.log(reverseLookup)
         results.push({ address: target, alive: true, time: (pingEnd - pingStart), hostname: reverseLookup });
       }
       completedCount++;
